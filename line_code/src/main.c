@@ -217,7 +217,9 @@ uint16_t read_line()
 	avg = 0;
 	sum = 0;
 	
-	for(i=0 ; i<6 ;i++) {
+	//FIX
+	
+	for(i=1 ; i<=6 ;i++) {
 		int value = sensor_values[i];
 
 		// keep track of whether we see the line at all
@@ -262,41 +264,6 @@ int main (void)
 	
 	initialize();
 	
-	//setMotors(200,200,1,1);
-	/*
-	while(1)
-	{
-		char fromPC = USART_Receive();
-		if (fromPC == 'a')
-		{
-			setMotors(200,0,1,1);
-			_delay_ms(250);
-			setMotors(0,0,1,1);
-		}
-		if (fromPC == 'w')
-		{
-			setMotors(200,200,0,0);
-			_delay_ms(250);
-			setMotors(0,0,1,1);
-		}
-		if (fromPC == 's')
-		{
-			setMotors(200,200,1,1);
-			_delay_ms(250);
-			setMotors(0,0,1,1);
-		}
-		if (fromPC == 'd')
-		{
-			setMotors(0,200,1,1);
-			_delay_ms(250);
-			setMotors(0,0,1,1);
-		}
-		//puts("Sensor readings: \n");
-		//wait forever
-	}
-	*/
-	
-	
 	while(1)
 	{
 		
@@ -335,7 +302,8 @@ int main (void)
 		
 		}
 		
-		if (fromPC == '1')
+		if (fromPC == '1' || fromPC == '2' || fromPC == '3' 
+					|| fromPC == '4')
 		{
 			while(1)
 			{
@@ -350,7 +318,10 @@ int main (void)
 				//puts(str);
 				
 				// The "proportional" term should be 0 when we are on the line.
-				int proportional = ((int)position) - 2600;
+				int subtractBy = 2600;
+				if (fromPC == '4')
+					subtractBy = 3800;
+				int proportional = ((int)position) - subtractBy;
 				//sprintf(str, "Proportional %d", proportional);
 				
 				//puts(str);
@@ -368,7 +339,11 @@ int main (void)
 				// to the right.  If it is a negative number, the robot will
 				// turn to the left, and the magnitude of the number determines
 				// the sharpness of the turn.
-				int power_difference = proportional/40 + derivative*3/2 + integral/10000;
+				int kpDivider = 40;
+				if (fromPC == '3')
+					kpDivider = 20;
+				
+				int power_difference = proportional/kpDivider + derivative*3/2 + integral/10000;
 				
 				//sprintf(str, "Power difference: %d", power_difference);
 				
@@ -377,6 +352,8 @@ int main (void)
 				// Compute the actual motor settings.  We never set either motor
 				// to a negative value.
 				const int max = 100;
+				if (fromPC== '2')
+					max = 150;
 				if(power_difference > max)
 				power_difference = max;
 				if(power_difference < -max)
@@ -390,208 +367,9 @@ int main (void)
 				
 				sum = sensor0 + sensor1 + sensor2 + sensor3 + sensor4 + sensor5;
 				
-				_delay_ms(1);
-				//sprintf(str, "%d %d %d %d %d %d", sum, power_difference, proportional, derivative, integral);
-				
-				//puts(str);
-				
-				
+				_delay_ms(1);		
 			}
-		}
-	
-	if (fromPC == '2')
-	{
-		while(1)
-		{
-			// Get the position of the line.  Note that we *must* provide
-			// the "sensors" argument to read_line() here, even though we
-			// are not interested in the individual sensor readings.
-			unsigned int position = read_line();
-			
-			
-			//sprintf(str, "Position %d", position);
-			
-			//puts(str);
-			
-			// The "proportional" term should be 0 when we are on the line.
-			int proportional = ((int)position) - 2600;
-			//sprintf(str, "Proportional %d", proportional);
-			
-			//puts(str);
-
-			// Compute the derivative (change) and integral (sum) of the
-			// position.
-			int derivative = proportional - last_proportional;
-			integral += proportional;
-
-			// Remember the last position.
-			last_proportional = proportional;
-			
-			// Compute the difference between the two motor power settings,
-			// m1 - m2.  If this is a positive number the robot will turn
-			// to the right.  If it is a negative number, the robot will
-			// turn to the left, and the magnitude of the number determines
-			// the sharpness of the turn.
-			int power_difference = proportional/40 + derivative*3/2 + integral/10000;
-			
-			//sprintf(str, "Power difference: %d", power_difference);
-			
-			//puts(str);
-			
-			// Compute the actual motor settings.  We never set either motor
-			// to a negative value.
-			const int max = 150;
-			if(power_difference > max)
-			power_difference = max;
-			if(power_difference < -max)
-			power_difference = -max;
-
-			if(power_difference < 0)
-			setMotors(max,max+power_difference,1,1);
-			else
-			setMotors(max-power_difference, max, 1,1);
-			
-			
-			sum = sensor0 + sensor1 + sensor2 + sensor3 + sensor4 + sensor5;
-			
-			_delay_ms(1);
-			//sprintf(str, "%d %d %d %d %d %d", sum, power_difference, proportional, derivative, integral);
-			
-			//puts(str);
-			
-			
-		}
-	}
-	
-	if (fromPC == '3')
-	{
-		while(1)
-		{
-			// Get the position of the line.  Note that we *must* provide
-			// the "sensors" argument to read_line() here, even though we
-			// are not interested in the individual sensor readings.
-			unsigned int position = read_line();
-			
-			
-			//sprintf(str, "Position %d", position);
-			
-			//puts(str);
-			
-			// The "proportional" term should be 0 when we are on the line.
-			int proportional = ((int)position) - 2600;
-			//sprintf(str, "Proportional %d", proportional);
-			
-			//puts(str);
-
-			// Compute the derivative (change) and integral (sum) of the
-			// position.
-			int derivative = proportional - last_proportional;
-			integral += proportional;
-
-			// Remember the last position.
-			last_proportional = proportional;
-			
-			// Compute the difference between the two motor power settings,
-			// m1 - m2.  If this is a positive number the robot will turn
-			// to the right.  If it is a negative number, the robot will
-			// turn to the left, and the magnitude of the number determines
-			// the sharpness of the turn.
-			int power_difference = proportional/20 + derivative*3/2 + integral/10000;
-			
-			//sprintf(str, "Power difference: %d", power_difference);
-			
-			//puts(str);
-			
-			// Compute the actual motor settings.  We never set either motor
-			// to a negative value.
-			const int max = 100;
-			if(power_difference > max)
-			power_difference = max;
-			if(power_difference < -max)
-			power_difference = -max;
-
-			if(power_difference < 0)
-			setMotors(max,max+power_difference,1,1);
-			else
-			setMotors(max-power_difference, max, 1,1);
-			
-			
-			sum = sensor0 + sensor1 + sensor2 + sensor3 + sensor4 + sensor5;
-			
-			_delay_ms(1);
-			//sprintf(str, "%d %d %d %d %d %d", sum, power_difference, proportional, derivative, integral);
-			
-			//puts(str);
-			
-			
-		}
-	}
-	
-		if (fromPC == '4')
-		{
-			while(1)
-			{
-				// Get the position of the line.  Note that we *must* provide
-				// the "sensors" argument to read_line() here, even though we
-				// are not interested in the individual sensor readings.
-				unsigned int position = read_line();
-				
-				
-				//sprintf(str, "Position %d", position);
-				
-				//puts(str);
-				
-				// The "proportional" term should be 0 when we are on the line.
-				int proportional = ((int)position) - 3800;
-				//sprintf(str, "Proportional %d", proportional);
-				
-				//puts(str);
-
-				// Compute the derivative (change) and integral (sum) of the
-				// position.
-				int derivative = proportional - last_proportional;
-				integral += proportional;
-
-				// Remember the last position.
-				last_proportional = proportional;
-				
-				// Compute the difference between the two motor power settings,
-				// m1 - m2.  If this is a positive number the robot will turn
-				// to the right.  If it is a negative number, the robot will
-				// turn to the left, and the magnitude of the number determines
-				// the sharpness of the turn.
-				int power_difference = proportional/20 + derivative*3/2 + integral/10000;
-				
-				//sprintf(str, "Power difference: %d", power_difference);
-				
-				//puts(str);
-				
-				// Compute the actual motor settings.  We never set either motor
-				// to a negative value.
-				const int max = 100;
-				if(power_difference > max)
-				power_difference = max;
-				if(power_difference < -max)
-				power_difference = -max;
-
-				if(power_difference < 0)
-				setMotors(max,max+power_difference,1,1);
-				else
-				setMotors(max-power_difference, max, 1,1);
-				
-				
-				sum = sensor0 + sensor1 + sensor2 + sensor3 + sensor4 + sensor5;
-				
-				_delay_ms(1);
-				//sprintf(str, "%d %d %d %d %d %d", sum, power_difference, proportional, derivative, integral);
-				
-				//puts(str);
-				
-				
-			}
-		}	
-		
-		
+		}		
 	}
 	
 	

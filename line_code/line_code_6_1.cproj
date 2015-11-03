@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectVersion>7.0</ProjectVersion>
+    <ProjectVersion>6.1</ProjectVersion>
     <ProjectGuid>{2cb4c874-ef75-44e1-923f-5064c3751b90}</ProjectGuid>
     <Name>$(MSBuildProjectName)</Name>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
@@ -65,45 +65,52 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega328 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.90\gcc\dev\atmega328"</avrgcc.common.Device>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>BOARD=STK600_MEGA</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src/config</Value>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.90\include</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
-  <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
-  <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=STK600_MEGA</avrgcc.assembler.general.AssemblerFlags>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src/config</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-</AvrGcc>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=STK600_MEGA</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+        <!-- Project configurable options -->
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.linker.libraries.Libraries />
+        <avrgcc.linker.libraries.LibrarySearchPaths />
+        <avrgcc.linker.general.DoNotUseStandardStartFiles>False</avrgcc.linker.general.DoNotUseStandardStartFiles>
+        <avrgcc.linker.general.DoNotUseDefaultLibraries>False</avrgcc.linker.general.DoNotUseDefaultLibraries>
+        <avrgcc.linker.general.NoStartupOrDefaultLibs>False</avrgcc.linker.general.NoStartupOrDefaultLibs>
+        <!-- Fixed options, according to ASF 2 MEGA/XMEGA Makefile -->
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.optimization.DebugLevel>None</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.linker.optimization.RelaxBranches>True</avrgcc.linker.optimization.RelaxBranches>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>False</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>False</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
+        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=STK600_MEGA</avrgcc.assembler.general.AssemblerFlags>
+        <avrgcc.assembler.debugging.DebugLevel>None</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
     </ToolchainSettings>
     <MemorySettings />
     <GenerateHexFile>True</GenerateHexFile>
@@ -114,47 +121,52 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega328 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.0.90\gcc\dev\atmega328"</avrgcc.common.Device>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>BOARD=STK600_MEGA</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src/config</Value>
-      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.90\include</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
-  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
-  <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
-  <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=STK600_MEGA</avrgcc.assembler.general.AssemblerFlags>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/mega/utils</Value>
-      <Value>../src/ASF/mega/utils/preprocessor</Value>
-      <Value>../src/config</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
-</AvrGcc>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=STK600_MEGA</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+        <!-- Project configurable options -->
+        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.linker.libraries.Libraries />
+        <avrgcc.linker.libraries.LibrarySearchPaths />
+        <avrgcc.linker.general.DoNotUseStandardStartFiles>False</avrgcc.linker.general.DoNotUseStandardStartFiles>
+        <avrgcc.linker.general.DoNotUseDefaultLibraries>False</avrgcc.linker.general.DoNotUseDefaultLibraries>
+        <avrgcc.linker.general.NoStartupOrDefaultLibs>False</avrgcc.linker.general.NoStartupOrDefaultLibs>
+        <!-- Fixed options, according to ASF 2 MEGA/XMEGA Makefile -->
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.linker.optimization.RelaxBranches>True</avrgcc.linker.optimization.RelaxBranches>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>False</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>False</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
+        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=STK600_MEGA</avrgcc.assembler.general.AssemblerFlags>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
     </ToolchainSettings>
     <MemorySettings />
     <GenerateHexFile>True</GenerateHexFile>
